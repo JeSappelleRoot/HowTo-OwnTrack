@@ -106,7 +106,7 @@ Edit `/etc/mosquitto/conf.d/mosquitto.conf` with the following content :
 listener 1883 127.0.0.1
 
 listener 8883
-tls_version tlsv1
+tls_version tlsv1.2
 
 cafile /etc/mosquitto/ca_certificates/ca.crt
 certfile /etc/mosquitto/certs/mosquitto.crt
