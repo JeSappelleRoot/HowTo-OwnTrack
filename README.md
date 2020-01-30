@@ -36,8 +36,8 @@ To finalize the installation, just run `sudo apt-get install curl git gnupg gnup
 
 OwnTracks needs a Mosquito DB, to send data throught MQTT protocol. 
 
-Run `sudo apt-get install mosquitto mosquitto-clients` to install Mosquitto DB and dependencies.   
-After the installation, run `sudo /etc/init.d/mosquitto stop` to stop Mosquitto DB (which perform an automatic startup after installation)
+Run `apt-get install mosquitto mosquitto-clients` to install Mosquitto DB and dependencies.   
+After the installation, run `/etc/init.d/mosquitto stop` to stop Mosquitto DB (which perform an automatic startup after installation)
 
 ## Setting up a user
 
