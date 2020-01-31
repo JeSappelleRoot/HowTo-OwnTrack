@@ -10,7 +10,7 @@
   - [Initialize LMBD database of OwnTracks](#initialize-lmbd-database-of-owntracks)
   - [Configuration](#configuration)
   - [Check OT-Recorder configuration](#check-ot-recorder-configuration)
-- [Setting up a reverse proxy with NGinx and Let's Encrypt](#setting-up-a-reverse-proxy-with-nginx-and-lets-encrypt)
+- [Setting up a reverse proxy with Nginx](#setting-up-a-reverse-proxy-with-nginx)
   - [Requirements](#requirements-1)
   - [Self signed certificate](#self-signed-certificate)
   - [Configure virtual host](#configure-virtual-host)
@@ -226,7 +226,7 @@ ot-recorder[4283]: Subscribing to owntracks/# (qos=2)
 
 > Congratulations, OwnTracks is almost configured
 
-# Setting up a reverse proxy with NGinx and Let's Encrypt
+# Setting up a reverse proxy with Nginx
 
 ## Requirements
 
