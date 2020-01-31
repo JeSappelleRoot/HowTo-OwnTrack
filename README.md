@@ -18,7 +18,7 @@
     - [Hide server version](#hide-server-version)
     - [Use passwd to secure access to folders](#use-passwd-to-secure-access-to-folders)
   - [Configure virtual host](#configure-virtual-host)
-  - [Configure some folders](#configure-some-folders)
+- [Smartphone configuration](#smartphone-configuration)
 
 
 
@@ -370,5 +370,36 @@ server {
 
 Then, create a symlink with `ln -s /etc/nginx/sites-availables/owntracks /etc/nginx/sites-enable/`
 
-## Configure some folders
+# Smartphone configuration
 
+Launch OwnTracks application. 
+
+* Tap on menu icon, in top left corner  
+
+![01](https://user-images.githubusercontent.com/52102633/73560503-b4b8bb80-441c-11ea-830d-4cf71ac4de25.jpeg)
+
+* Go to Preferences menu
+
+![02](https://user-images.githubusercontent.com/52102633/73560504-b4b8bb80-441c-11ea-8324-4893d3cc2346.jpeg)
+
+**Then go to Connection menu to configure application**
+
+* In Mode option, choose MQTT
+
+![00](https://user-images.githubusercontent.com/52102633/73560917-8c7d8c80-441d-11ea-8a69-42bd6b9e6df1.jpeg)
+
+* In Host option, specify IP address of your Mosquitto database, and port 8883. Finally disable websockets 
+
+![03](https://user-images.githubusercontent.com/52102633/73560505-b4b8bb80-441c-11ea-8a91-888de12f992d.jpeg)
+
+* In Identification option,specify `dbo` username and associated password. Specify a `Device ID` and a `Tracker ID`
+
+![04](https://user-images.githubusercontent.com/52102633/73560506-b4b8bb80-441c-11ea-929e-2f6fcd8b34ad.jpeg)
+
+* In Security option, enable TLS support and select your certificate create at this [step](#easily-generate-ca-and-certificates)
+
+![05](https://user-images.githubusercontent.com/52102633/73560507-b4b8bb80-441c-11ea-8074-2e54c2b7ae81.jpeg)
+
+* Finally, check connection to your Mosquitto database from `i` icon on right top corner of the application 
+
+![06](https://user-images.githubusercontent.com/52102633/73560508-b5515200-441c-11ea-8e0b-4487db63d21e.jpeg)
