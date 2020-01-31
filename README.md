@@ -10,6 +10,7 @@
   - [Initialize LMBD database of OwnTracks](#initialize-lmbd-database-of-owntracks)
   - [Configuration](#configuration)
   - [Check OT-Recorder configuration](#check-ot-recorder-configuration)
+  - [Automatic launch](#automatic-launch)
 - [Setting up a reverse proxy with Nginx](#setting-up-a-reverse-proxy-with-nginx)
   - [Requirements](#requirements-1)
   - [Self signed certificate](#self-signed-certificate)
@@ -225,6 +226,11 @@ ot-recorder[4283]: Subscribing to owntracks/# (qos=2)
 ```
 
 > Congratulations, OwnTracks is almost configured
+
+## Automatic launch
+
+Use `systemctl enable ot-recorder.service` to allow `ot-recorder` to be launch at the startup of your server
+
 
 # Setting up a reverse proxy with Nginx
 
