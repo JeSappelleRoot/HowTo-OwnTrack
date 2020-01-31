@@ -268,83 +268,93 @@ Run `nano /etc/nginx/sites-availables/owntracks` and paste the following content
 
 ```
 server {
-    listen       80;
-    server_name  <WEB SERVER IP HERE/FQDN>;
-    return 301 https://$host$request_uri;
+    
+        listen       80;
+        server_name  <WEB SERVER IP HERE/FQDN>;
+        auth_basic              "Hey you !?";
+        auth_basic_user_file    "/etc/nginx/.owntracks.passwd";
+
+        return 301 https://$host$request_uri;
 }
 
 server {
 
-    listen               443;
-    ssl                  on; 
-    ssl_certificate      /etc/nginx/TLS/owntracks.crt;
-    ssl_certificate_key  /etc/nginx/TLS/owntracks.key;
+        listen               443;
+        ssl                  on; 
+        ssl_certificate      /etc/nginx/TLS/owntracks.crt;
+        ssl_certificate_key  /etc/nginx/TLS/owntracks.key;
 
-    ssl_session_cache  builtin:1000  shared:SSL:10m;
-    ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
-    ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
-    ssl_prefer_server_ciphers on;
+        ssl_session_cache  builtin:1000  shared:SSL:10m;
+        ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
+        ssl_prefer_server_ciphers on;
 
-    access_log          /var/log/nginx/owntracks_access.log;
+        access_log              /var/log/nginx/owntracks_access.log;
+        error_log               /var/log/nginx/owntracks_error.log;
+
+        # Main page
+        location / {
+
+                proxy_pass              http://127.0.0.1:8083;
+                proxy_http_version      1.1;
+                proxy_set_header        Host $host;
+                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header        X-Real-IP $remote_addr;
+
+                # Redirect to main map
+                #rewrite ^/$ https://$host/last/index.html permanent;
+
+        }
+
+        # Proxy and upgrade WebSocket connection
+        location /owntracks/ws {
+
+                rewrite ^/owntracks/(.*)    /$1 break;
+                proxy_pass      http://127.0.0.1:8083;
+                proxy_http_version  1.1;
+                proxy_set_header    Upgrade $http_upgrade;
+                proxy_set_header    Connection "upgrade";
+                proxy_set_header    Host $host;
+                proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+        }
 
 
-
-    location / {
-        #root   html;
-        #index  index.html index.htm;
-        proxy_pass      http://127.0.0.1:8083/;
-        proxy_http_version  1.1;
-        proxy_set_header    Host $host;
-        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header    X-Real-IP $remote_addr;
-
-    }
-
-    # Proxy and upgrade WebSocket connection
-    location /owntracks/ws {
-        rewrite ^/owntracks/(.*)    /$1 break;
-        proxy_pass      http://127.0.0.1:8083;
-        proxy_http_version  1.1;
-        proxy_set_header    Upgrade $http_upgrade;
-        proxy_set_header    Connection "upgrade";
-        proxy_set_header    Host $host;
-        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
+        # OwnTracks Recorder Views
+        location /owntracks/view/ {
+                proxy_buffering         off;            # Chrome
+                proxy_pass              http://127.0.0.1:8083/view/;
+                proxy_http_version      1.1;
+                proxy_set_header        Host $host;
+                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header        X-Real-IP $remote_addr;
+        }
 
 
-    # OwnTracks Recorder Views
-    location /owntracks/view/ {
-         proxy_buffering         off;            # Chrome
-         proxy_pass              http://127.0.0.1:8083/view/;
-         proxy_http_version      1.1;
-         proxy_set_header        Host $host;
-         proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-         proxy_set_header        X-Real-IP $remote_addr;
-    }
-    location /owntracks/static/ {
-         proxy_pass              http://127.0.0.1:8083/static/;
-         proxy_http_version      1.1;
-         proxy_set_header        Host $host;
-         proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-         proxy_set_header        X-Real-IP $remote_addr;
-    }
+        location /owntracks/static/ {
 
-    # HTTP Mode
-    location /owntracks/pub {
-        auth_basic              "OwnTracks pub";
-        auth_basic_user_file    /usr/local/etc/nginx/owntracks.htpasswd;
-        proxy_pass              http://127.0.0.1:8083/pub;
-        proxy_http_version      1.1;
-        proxy_set_header        Host $host;
-        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header        X-Real-IP $remote_addr;
+                proxy_pass              http://127.0.0.1:8083/static/;
+                proxy_http_version      1.1;
+                proxy_set_header        Host $host;
+                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header        X-Real-IP $remote_addr;
+        }
 
-        # Optionally force Recorder to use username from Basic
-        # authentication user. Whether or not client sets
-        # X-Limit-U and/or uses ?u= parameter, the user will
-        # be set to $remote_user.
-        proxy_set_header        X-Limit-U $remote_user;
-    }
+
+        # HTTP Mode
+        #location /owntracks/pub {
+
+                #proxy_pass              http://127.0.0.1:8083/pub;
+                #proxy_http_version      1.1;
+                #proxy_set_header        Host $host;
+                #proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                #proxy_set_header        X-Real-IP $remote_addr;
+
+                # Optionally force Recorder to use username from Basic
+                # authentication user. Whether or not client sets
+                # X-Limit-U and/or uses ?u= parameter, the user will
+                # be set to $remote_user.
+                #proxy_set_header        X-Limit-U $remote_user;
+        #}
 }
 
 ```
