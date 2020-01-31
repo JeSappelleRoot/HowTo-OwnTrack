@@ -14,7 +14,9 @@
 - [Setting up a reverse proxy with Nginx](#setting-up-a-reverse-proxy-with-nginx)
   - [Requirements](#requirements-1)
   - [Self signed certificate](#self-signed-certificate)
-  - [Create passwd file](#create-passwd-file)
+  - [About security](#about-security)
+    - [Hide server version](#hide-server-version)
+    - [Use passwd to secure access to folders](#use-passwd-to-secure-access-to-folders)
   - [Configure virtual host](#configure-virtual-host)
   - [Configure some folders](#configure-some-folders)
 
@@ -250,7 +252,15 @@ openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout /etc/nginx/TLS/owntr
 
 Generate a Diffie-Hellman key with `openssl dhparam -out /etc/nginx/TLS/dhparam.pem 2048`
 
-## Create passwd file
+## About security
+
+### Hide server version
+
+Edit `/etc/nginx/nginx.conf` and uncomment `server_tokens off;`
+>Nginx will not show the server version
+
+
+### Use passwd to secure access to folders
 
 >Source [here](https://docs.nginx.com/nginx/admin-guide/security-controls/configuring-http-basic-authentication/)
 
@@ -258,6 +268,8 @@ To secure some directories, we needs authentification with login and password.
 
 Use `htpasswd -c -B .owntracks.passwd <USERNAME HERE>` to create a login and a associated password. This account will be used to access on restricted pages.
 > You can add new users with the same command, without `-c` argument (to add to the file)
+
+
 
 
 ## Configure virtual host
@@ -268,7 +280,7 @@ Run `nano /etc/nginx/sites-availables/owntracks` and paste the following content
 
 ```
 server {
-    
+
         listen       80;
         server_name  <WEB SERVER IP HERE/FQDN>;
         auth_basic              "Hey you !?";
