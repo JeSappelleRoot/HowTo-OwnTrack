@@ -65,8 +65,6 @@ mv /etc/mosquitto/conf.d/$(hostname -f).* /etc/mosquitto/certs/
 mv /etc/mosquitto/certs/*.crt /etc/mosquitto/certs/mosquitto.crt
 mv /etc/mosquitto/certs/*.key /etc/mosquitto/certs/mosquitto.key
 mv /etc/mosquitto/certs/*.csr /etc/mosquitto/certs/mosquitto.csr
-
-
 ```
 
 Edit `/etc/mosquitto/conf.d/mosquitto.conf` to modify these values (adapt cert and key filename) : 
@@ -75,7 +73,6 @@ Edit `/etc/mosquitto/conf.d/mosquitto.conf` to modify these values (adapt cert a
 cafile /etc/mosquitto/ca_certificates/ca.crt
 certfile /etc/mosquitto/certs/mosquitto.crt
 keyfile /etc/mosquitto/certs/mosquitto.key
-
 ```
 
 ## Configure Mosquitto DB
@@ -392,7 +389,7 @@ Launch OwnTracks application.
 
 ![03](https://user-images.githubusercontent.com/52102633/73560505-b4b8bb80-441c-11ea-8a91-888de12f992d.jpeg)
 
-* In Identification option,specify `dbo` username and associated password. Specify a `Device ID` and a `Tracker ID`
+* In Identification option, specify `dbo` username and associated password. Specify a `Device ID` and a `Tracker ID`
 
 ![04](https://user-images.githubusercontent.com/52102633/73560506-b4b8bb80-441c-11ea-929e-2f6fcd8b34ad.jpeg)
 
