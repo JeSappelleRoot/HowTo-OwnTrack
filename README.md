@@ -75,6 +75,9 @@ certfile /etc/mosquitto/certs/mosquitto.crt
 keyfile /etc/mosquitto/certs/mosquitto.key
 ```
 
+**The ca.crt needs to be on your smartphone to establish secure connection, between Mosquitto database and OwnTracks application**
+
+
 ## Configure Mosquitto DB
 
 Edit `/etc/mosquitto/mosquitto.conf` with the following content : 
