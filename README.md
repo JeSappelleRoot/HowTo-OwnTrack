@@ -266,8 +266,9 @@ Edit `/etc/nginx/nginx.conf` and uncomment `server_tokens off;`
 
 To secure some directories, we needs authentification with login and password. 
 
-Use `htpasswd -c -B .owntracks.passwd <USERNAME HERE>` to create a login and a associated password. This account will be used to access on restricted pages.
-> You can add new users with the same command, without `-c` argument (to add to the file)
+Use `htpasswd -c .owntracks.passwd <USERNAME HERE>` to create a login and a associated password. This account will be used to access on restricted pages.
+> You can add new users with the same command, without `-c` argument (to add to the file)  
+> **Using `bcrypt` algorithm with `htpasswd` can cause 500 errors with nginx**
 
 
 
