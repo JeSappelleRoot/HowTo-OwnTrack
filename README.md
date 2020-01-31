@@ -10,7 +10,7 @@
   - [Initialize LMBD database of OwnTracks](#initialize-lmbd-database-of-owntracks)
   - [Configuration](#configuration)
   - [Check OT-Recorder configuration](#check-ot-recorder-configuration)
-  - [Automatic launch](#automatic-launch)
+  - [Automatic launch of the recorder](#automatic-launch-of-the-recorder)
 - [Setting up a reverse proxy with Nginx](#setting-up-a-reverse-proxy-with-nginx)
   - [Requirements](#requirements-1)
   - [Self signed certificate](#self-signed-certificate)
@@ -25,7 +25,7 @@
 
 # Requirements
 
-OwnTracks can be easily installed with Debian 9
+OwnTracks can be easily installed with Debian 9  
 You can download the latest version [here](https://cdimage.debian.org/cdimage/archive/9.11.0/amd64/iso-cd/)
 
 > We assume your Debian installation is already done and well configured
@@ -179,7 +179,7 @@ Client mosqsub/3355-tuto received PINGRESP
 
 > Congratulations, Mosquitto DB is ready to receive data from OwnTracks ! 
 
-You can leave all terminals, and just run `sudo /etc/ini.d/mosquitto start`
+You can leave all terminals, and just run `sudo /etc/init.d/mosquitto start`
 
 
 # OT-Recorder installation and configuration
@@ -231,9 +231,9 @@ ot-recorder[4283]: Subscribing to owntracks/# (qos=2)
 
 > Congratulations, OwnTracks is almost configured
 
-## Automatic launch
+## Automatic launch of the recorder
 
-Use `systemctl enable ot-recorder.service` to allow `ot-recorder` to be launch at the startup of your server
+Use `systemctl enable ot-recorder.service` command to allow `ot-recorder` to be launched at the startup of your server
 
 
 # Setting up a reverse proxy with Nginx
@@ -253,12 +253,14 @@ openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout /etc/nginx/TLS/owntr
 
 Generate a Diffie-Hellman key with `openssl dhparam -out /etc/nginx/TLS/dhparam.pem 2048`
 
+> Generate Diffie-Hellman keys can be long, have some cofee...
+
 ## About security
 
 ### Hide server version
 
 Edit `/etc/nginx/nginx.conf` and uncomment `server_tokens off;`
->Nginx will not show the server version
+>Nginx will not show the server version in case of error page
 
 
 ### Use passwd to secure access to folders
@@ -267,7 +269,7 @@ Edit `/etc/nginx/nginx.conf` and uncomment `server_tokens off;`
 
 To secure some directories, we needs authentification with login and password. 
 
-Use `htpasswd -c .owntracks.passwd <USERNAME HERE>` to create a login and a associated password. This account will be used to access on restricted pages.
+Use `htpasswd -c /etc/nginx/.owntracks.passwd <USERNAME HERE>` to create a login and a associated password. This account will be used to access on restricted pages.
 > You can add new users with the same command, without `-c` argument (to add to the file)  
 > **Using `bcrypt` algorithm with `htpasswd` can cause 500 errors with nginx**
 
@@ -278,8 +280,7 @@ Use `htpasswd -c .owntracks.passwd <USERNAME HERE>` to create a login and a asso
 
 Remove the default virtual host symlink with `rm /etc/nginx/sites-enable/default`
 
-> Full example of nginx virtual host configuration can be found [here](https://github.com/owntracks/recorder#nginx)
-
+> Full example of nginx virtual host configuration can be found [here](https://github.com/owntracks/recorder#nginx)  
 > OT-Recorder website files are located to `/usr/share/owntracks/recorder/htdocs`
 
 Create and edit `/etc/nginx/sites-availables/owntracks` and paste the following content : 
@@ -369,7 +370,7 @@ server {
 }
 ```
 
-Then, create a symlink with `ln -s /etc/nginx/sites-availables/owntracks /etc/nginx/sites-enable/`
+Then, create a symlink with `ln -s /etc/nginx/sites-availables/owntracks /etc/nginx/sites-enabled/`
 
 # Smartphone configuration
 
