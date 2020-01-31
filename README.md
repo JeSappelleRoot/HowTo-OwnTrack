@@ -236,7 +236,7 @@ Use `systemctl enable ot-recorder.service` to allow `ot-recorder` to be launch a
 
 ## Requirements
 
-Install nginx and certbox with `apt-get install nginx python-certbox-nginx`
+Install nginx and certbox with `apt-get install nginx apache2-utils`
 
 ## Self signed certificate 
 
