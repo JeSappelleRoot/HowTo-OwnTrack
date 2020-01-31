@@ -19,6 +19,7 @@
     - [Use passwd to secure access to folders](#use-passwd-to-secure-access-to-folders)
   - [Configure virtual host](#configure-virtual-host)
 - [Smartphone configuration](#smartphone-configuration)
+- [Customize view](#customize-view)
 
 
 
@@ -403,3 +404,23 @@ Launch OwnTracks application.
 * Finally, check connection to your Mosquitto database from `i` icon on right top corner of the application 
 
 ![06](https://user-images.githubusercontent.com/52102633/73560508-b5515200-441c-11ea-8e0b-4487db63d21e.jpeg)
+
+
+# Customize view
+
+OwnTracks allow you to customize maps with views
+> View example [here](https://github.com/owntracks/recorder#display-map-with-points-starting-at-a-particular-date)
+
+With our configuration, we can craft url with the following settings : 
+
+```
+https://<WEBSERVER>/map/index.html?user=dbo&device=MySmartphone&format=geojson&from=2019-01-01
+
+https://<WEBSERVER>/map/index.html?user=dbo&device=MySmartphone&format=linestring&from=2019-01-01
+```
+
+The first URL could provide the following result :   
+![with points](https://raw.githubusercontent.com/owntracks/recorder/master/assets/demo-geojson-points.png)
+
+The second URL could provide the following result : 
+![with lines](https://raw.githubusercontent.com/owntracks/recorder/master/assets/demo-geojson-linestring.png)
