@@ -322,6 +322,7 @@ server {
                 proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
                 proxy_set_header        X-Real-IP $remote_addr;
 
+                autoindex               off;
                 auth_basic              off;
 
                 # Redirect to main map
@@ -339,25 +340,24 @@ server {
                 proxy_set_header        Host $host;
                 proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
 
-                #auth_basic             "Who are you ?!";
-                #auth_basic_user_file   "/etc/nginx/.owntracks.passwd";
-
         }
 
         # OwnTracks Recorder Views
-        location /owntracks/view/ {
+        location /owntracks/views/ {
                 proxy_buffering         off;            # Chrome
-                proxy_pass              http://127.0.0.1:8083/view/;
+                proxy_pass              http://127.0.0.1:8083/views;
                 proxy_http_version      1.1;
                 proxy_set_header        Host $host;
                 proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
                 proxy_set_header        X-Real-IP $remote_addr;
+
         }
 
 
         location /owntracks/static/ {
 
                 proxy_pass              http://127.0.0.1:8083/static/;
+                autoindex               off;
                 proxy_http_version      1.1;
                 proxy_set_header        Host $host;
                 proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
