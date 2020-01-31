@@ -277,6 +277,8 @@ Use `htpasswd -c .owntracks.passwd <USERNAME HERE>` to create a login and a asso
 
 Remove the default virtual host symlink with `rm /etc/nginx/sites-enable/default`
 
+> Full example of nginx virtual host configuration can be found [here](https://github.com/owntracks/recorder#nginx)
+
 Run `nano /etc/nginx/sites-availables/owntracks` and paste the following content : 
 
 ```
