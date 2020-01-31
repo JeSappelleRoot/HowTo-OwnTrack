@@ -279,7 +279,9 @@ Remove the default virtual host symlink with `rm /etc/nginx/sites-enable/default
 
 > Full example of nginx virtual host configuration can be found [here](https://github.com/owntracks/recorder#nginx)
 
-Run `nano /etc/nginx/sites-availables/owntracks` and paste the following content : 
+> OT-Recorder website files are located to `/usr/share/owntracks/recorder/htdocs`
+
+Create and edit `/etc/nginx/sites-availables/owntracks` and paste the following content : 
 
 ```
 server {
