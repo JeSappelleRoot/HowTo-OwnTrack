@@ -305,6 +305,10 @@ server {
         access_log              /var/log/nginx/owntracks_access.log;
         error_log               /var/log/nginx/owntracks_error.log;
 
+        auth_basic              "Hey, who are you ?!";
+        auth_basic_user_file    "/etc/nginx/.owntracks.passwd";
+
+
         # Main page
         location / {
 
@@ -314,23 +318,27 @@ server {
                 proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
                 proxy_set_header        X-Real-IP $remote_addr;
 
+                auth_basic              off;
+
                 # Redirect to main map
-                #rewrite ^/$ https://$host/last/index.html permanent;
+                rewrite ^/$ https://$host/last/index.html permanent;
 
         }
 
-        # Proxy and upgrade WebSocket connection
-        location /owntracks/ws {
+        # Main page
+        location /table {
 
-                rewrite ^/owntracks/(.*)    /$1 break;
-                proxy_pass      http://127.0.0.1:8083;
-                proxy_http_version  1.1;
-                proxy_set_header    Upgrade $http_upgrade;
-                proxy_set_header    Connection "upgrade";
-                proxy_set_header    Host $host;
-                proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_pass              http://127.0.0.1:8083;
+                proxy_http_version      1.1;
+                proxy_set_header        Upgrade $http_upgrade;
+                proxy_set_header        Connection "upgrade";
+                proxy_set_header        Host $host;
+                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+
+                #auth_basic             "Who are you ?!";
+                #auth_basic_user_file   "/etc/nginx/.owntracks.passwd";
+
         }
-
 
         # OwnTracks Recorder Views
         location /owntracks/view/ {
@@ -353,23 +361,7 @@ server {
         }
 
 
-        # HTTP Mode
-        #location /owntracks/pub {
-
-                #proxy_pass              http://127.0.0.1:8083/pub;
-                #proxy_http_version      1.1;
-                #proxy_set_header        Host $host;
-                #proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-                #proxy_set_header        X-Real-IP $remote_addr;
-
-                # Optionally force Recorder to use username from Basic
-                # authentication user. Whether or not client sets
-                # X-Limit-U and/or uses ?u= parameter, the user will
-                # be set to $remote_user.
-                #proxy_set_header        X-Limit-U $remote_user;
-        #}
 }
-
 ```
 
 Then, create a symlink with `ln -s /etc/nginx/sites-availables/owntracks /etc/nginx/sites-enable/`
