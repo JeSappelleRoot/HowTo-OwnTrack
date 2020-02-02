@@ -191,7 +191,7 @@ Run the following command : `ot-recorder --initialize`
 
 ## Configuration
 
-Edit `/etc/default/ot-recorder`, to change these values : 
+Edit `/etc/default/ot-recorder`, to uncomment and change these values : 
 ```
 OTR_PORT=8883
 OTR_USER="dbo"
