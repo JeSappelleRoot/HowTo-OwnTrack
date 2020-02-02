@@ -68,15 +68,7 @@ mv /etc/mosquitto/certs/*.key /etc/mosquitto/certs/mosquitto.key
 mv /etc/mosquitto/certs/*.csr /etc/mosquitto/certs/mosquitto.csr
 ```
 
-Edit `/etc/mosquitto/conf.d/mosquitto.conf` to modify these values (adapt cert and key filename) : 
-
-```
-cafile /etc/mosquitto/ca_certificates/ca.crt
-certfile /etc/mosquitto/certs/mosquitto.crt
-keyfile /etc/mosquitto/certs/mosquitto.key
-```
-
-**The ca.crt needs to be on your smartphone to establish secure connection, between Mosquitto database and OwnTracks application**
+**The file /etc/mosquitto/ca_certificates/ca.crt needs to be on your smartphone to establish secure connection, between Mosquitto database and OwnTracks application**
 
 
 ## Configure Mosquitto DB
