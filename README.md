@@ -225,7 +225,8 @@ ot-recorder[4283]: Subscribing to owntracks/# (qos=2)
 
 ## Automatic launch of the recorder
 
-Use `systemctl enable ot-recorder.service` command to allow `ot-recorder` to be launched at the startup of your server
+Use `systemctl enable ot-recorder.service` command to allow `ot-recorder` to be launched at the startup of your server.  
+Then, launch `systemctl start ot-recorder.service` to finally launch OwnTracks recorder
 
 
 # Setting up a reverse proxy with Nginx
