@@ -270,7 +270,7 @@ Use `htpasswd -c /etc/nginx/.owntracks.passwd <USERNAME HERE>` to create a login
 
 ## Configure virtual host
 
-Remove the default virtual host symlink with `rm /etc/nginx/sites-enable/default`
+Remove the default virtual host symlink with `rm /etc/nginx/sites-enabled/default`
 
 > Full example of nginx virtual host configuration can be found [here](https://github.com/owntracks/recorder#nginx)  
 > OT-Recorder website files are located to `/usr/share/owntracks/recorder/htdocs`
