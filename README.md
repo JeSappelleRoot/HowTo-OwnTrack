@@ -171,7 +171,7 @@ Client mosqsub/3355-tuto received PINGRESP
 
 > Congratulations, Mosquitto DB is ready to receive data from OwnTracks ! 
 
-You can leave all terminals, and just run `sudo /etc/init.d/mosquitto start`
+You can leave all terminals, and just run `/etc/init.d/mosquitto start`
 
 
 # OT-Recorder installation and configuration
