@@ -63,9 +63,6 @@ Then, move certificates and keys to rights directories and change certificate an
 ```
 mv /etc/mosquitto/conf.d/ca* /etc/mosquitto/ca_certificates/
 mv /etc/mosquitto/conf.d/$(hostname -f).* /etc/mosquitto/certs/
-mv /etc/mosquitto/certs/*.crt /etc/mosquitto/certs/mosquitto.crt
-mv /etc/mosquitto/certs/*.key /etc/mosquitto/certs/mosquitto.key
-mv /etc/mosquitto/certs/*.csr /etc/mosquitto/certs/mosquitto.csr
 ```
 
 Edit `/etc/mosquitto/conf.d/mosquitto.conf` to modify these values (adapt cert and key filename) : 
