@@ -362,7 +362,7 @@ server {
 }
 ```
 
-Then, create a symlink with `ln -s /etc/nginx/sites-availables/owntracks /etc/nginx/sites-enabled/`
+Then, create a symlink with `ln -s /etc/nginx/sites-available/owntracks /etc/nginx/sites-enabled/`
 
 # Smartphone configuration
 
