@@ -21,7 +21,6 @@
 - [Smartphone configuration](#smartphone-configuration)
 - [Customize view](#customize-view)
 
-
 # Requirements
 
 OwnTracks can be easily installed with Debian 9  
